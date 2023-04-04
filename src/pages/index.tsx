@@ -1,11 +1,116 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import { Jua } from 'next/font/google'
+import styles from '@/styles/Home.module.sass'
+import cn from 'classnames';
+
+import { Logo } from '../../components/Logo';
+
+import menu from '../styles/asstes/menu-burger.png';
+import arrow from '../styles/asstes/angle-right.png';
+import img from '../styles/asstes/Screenshot from 2023-04-03 12-34-00.png';
+import heart from '../styles/asstes/heart.png';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const categoryArrey = [
+    {
+      name: 'Sport',
+    },
+    {
+      name: 'News',
+    }
+  ]
+
+  const itemsArrey = [
+    {
+      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
+      img: {img}
+    },
+    {
+      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
+      img: {img}
+    },
+    {
+      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
+      img: {img}
+    },
+    {
+      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
+      img: {img}
+    },
+    {
+      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
+      img: {img}
+    },
+  ]
+
+  const CategoryGenerator = (props) => {
+
+    const ListGenerator = (props) => {
+      return (
+        <div className={styles.articleContainer}>
+            <div className={styles.articleTop}>
+              <div className={styles.reactionsWrapper}>
+                <div className={styles.heartContainer}>
+                  <Image
+                    src={heart}
+                    width={60}
+                    height={57}
+                    alt='heart IMG'
+                    priority
+                    className={styles.heartImg}
+                  />
+                </div>
+                <div className={styles.reactionCounter}>
+                  1,2 k
+                </div>
+              </div>
+              <span className={styles.targetHTML}>
+                onet.pl
+              </span>
+            </div>
+          <div className={styles.headerContainer}>
+            <h1 className={styles.articleHeader}>{props.box}</h1>
+          </div>
+          <Image
+            src={img}
+            width={450}
+            height={250}
+            alt='Article IMG'
+            priority
+            className={styles.articleImg}
+          />
+        </div>
+      )
+    }
+
+   const ItemsList = itemsArrey.map((item, index) => <ListGenerator box={item.title}/>)
+
+    return (
+      <>
+        <div className={styles.categoryHeader}>
+        <h1 className={inter.className}>{props.item}</h1>
+          <Image
+            src={arrow}
+            width={20}
+            height={20}
+            alt='arrow IMG'
+            className={styles.arrowImg}
+          />
+        </div>
+        <div className={styles.itemsList}>
+          {ItemsList}
+        </div>
+      </>
+    )
+  }
+
+  const CategoryList = categoryArrey.map( item => <CategoryGenerator item={item.name} />)
+
   return (
     <>
       <Head>
@@ -14,108 +119,24 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
+      <div className={styles.navbarContainer}>
+        <nav className={styles.navbar}>
+          <Logo/>
+          <span className={styles.menuContainer}>
             <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
+              src={menu}
+              width={30}
+              height={30}
+              alt='Menu IMG'
               priority
+              className={styles.menuImg}
             />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
+          </span>
+        </nav>
+      </div>
+      <main className={styles.main}>
+        <div className={styles.mainContainer}>
+          {CategoryList}
         </div>
       </main>
     </>
