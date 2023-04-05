@@ -25,28 +25,27 @@ export default function Home() {
     }
   ]
 
-  const itemsArrey = [
-    {
-      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
-      img: {img}
-    },
-    {
-      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
-      img: {img}
-    },
-    {
-      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
-      img: {img}
-    },
-    {
-      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
-      img: {img}
-    },
-    {
-      title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
-      img: {img}
-    },
-  ]
+  const itemsArrey =
+    [
+      {
+        category: 'Sport',
+        title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
+        img: {img}
+      },
+      {
+        category: 'News',
+        title: 'Dawid',
+        img: {img}
+  
+      },
+      {
+        category: 'News',
+        title: 'Dawid',
+        img: {img}
+  
+      },
+    ]
+
 
   const CategoryGenerator = (props) => {
 
@@ -88,7 +87,16 @@ export default function Home() {
       )
     }
 
-   const ItemsList = itemsArrey.map((item, index) => <ListGenerator box={item.title}/>)
+   const ItemsList = () => {
+     const arrey = itemsArrey.filter(x => {
+      if(x.category === props.item) {
+        return x;
+      }
+     })
+
+     return arrey.map((item, index) => <ListGenerator box={item.title}  index={index}/>)
+   }
+
 
     return (
       <>
@@ -103,7 +111,7 @@ export default function Home() {
           />
         </div>
         <div className={styles.itemsList}>
-          {ItemsList}
+          {ItemsList()}
         </div>
       </>
     )
