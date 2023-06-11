@@ -4,53 +4,57 @@ import { Inter } from 'next/font/google'
 import { Jua } from 'next/font/google'
 import styles from '@/styles/Home.module.sass'
 import cn from 'classnames';
+import { createClient } from 'next-sanity'
 
 import { Logo } from '../../components/Logo';
 
 import menu from '../styles/asstes/menu-burger.png';
 import arrow from '../styles/asstes/angle-right.png';
-import img from '../styles/asstes/Screenshot from 2023-04-03 12-34-00.png';
+import img from '../styles/asstes/skoki.png';
 import heart from '../styles/asstes/heart.png';
+import Link from 'next/link'
+import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
 
-  const categoryArrey = [
-    {
-      name: 'Sport',
-    },
-    {
-      name: 'News',
-    }
-  ]
+export default function Home(props: any) {
+  const [categoryArrey, setCategory] = useState(['Sport', 'Na Drodze', 'Biznes'])
+  const articles = props.articles
+
+  // const categoryArrey = ['Sport']
 
   const itemsArrey =
     [
       {
         category: 'Sport',
         title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
+        website: 'onet.pl',
+        url: 'https://onet.pl',
+        likes: 100,
+        img: {img}
+      },
+      {
+        category: 'News',
+        title: 'Dawid',
+        website: 'onet.pl',
         img: {img}
       },
       {
         category: 'News',
         title: 'Dawid',
         img: {img}
-  
-      },
-      {
-        category: 'News',
-        title: 'Dawid',
-        img: {img}
-  
       },
     ]
 
 
-  const CategoryGenerator = (props) => {
+  const CategoryGenerator = (props: any) => {
 
-    const ListGenerator = (props) => {
+    const ListGenerator = (props: any) => {
       return (
+      <Link
+        href={props.url ? props.url : '#'}
+      >
         <div className={styles.articleContainer}>
             <div className={styles.articleTop}>
               <div className={styles.reactionsWrapper}>
@@ -65,36 +69,48 @@ export default function Home() {
                   />
                 </div>
                 <div className={styles.reactionCounter}>
-                  1,2 k
+                  {props.likes < 1000 ? props.likes : ( props.likes / 100 ) + " k"}
                 </div>
               </div>
               <span className={styles.targetHTML}>
-                onet.pl
+                {props.website}
               </span>
             </div>
           <div className={styles.headerContainer}>
             <h1 className={styles.articleHeader}>{props.box}</h1>
           </div>
-          <Image
-            src={img}
-            width={450}
-            height={250}
-            alt='Article IMG'
-            priority
-            className={styles.articleImg}
-          />
+          { props.img == undefined ?
+              <Image
+                src={img}
+                width={450}
+                height={250}
+                alt='Article IMG'
+                priority
+                className={styles.noImg}
+              />
+            :
+              <Image
+                src={props.img}
+                width={450}
+                height={250}
+                alt='Article IMG'
+                priority
+                className={styles.articleImg}
+              />
+          }
         </div>
+      </Link>
       )
     }
 
    const ItemsList = () => {
-     const arrey = itemsArrey.filter(x => {
+     const array = articles.filter(x => {
       if(x.category === props.item) {
         return x;
       }
      })
 
-     return arrey.map((item, index) => <ListGenerator box={item.title}  index={index}/>)
+     return array.map((item, index) => <ListGenerator key={index} box={item.title} url={item.url} website={item.website} likes={item.likes} img={item.photo}/>)
    }
 
 
@@ -117,7 +133,7 @@ export default function Home() {
     )
   }
 
-  const CategoryList = categoryArrey.map( item => <CategoryGenerator item={item.name} />)
+  const CategoryList = categoryArrey.map( item => <CategoryGenerator item={item} />)
 
   return (
     <>
@@ -149,4 +165,19 @@ export default function Home() {
       </main>
     </>
   )
+}
+const client = createClient({
+  projectId: "5scbkc2c",
+  dataset: "production",
+  apiVersion: "2022-03-25",
+  useCdn: false
+});
+
+export async function getStaticProps() {
+  const articles = await client.fetch(`*[_type == "post"]`);
+  return {
+    props: {
+      articles
+    }
+  }
 }
