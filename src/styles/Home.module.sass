@@ -68,9 +68,6 @@ $m7: #f99317df
   position: relative
   justify-content: right
   margin-right: 20px
-  // display: flex
-
-.noImg
 
 .articleTop
   display: flex
@@ -84,13 +81,17 @@ $m7: #f99317df
   position: absolute
   display: flex
   justify-content: right
-  margin-top: 35%
+  margin-top: 37%
 
 .articleHeader
   background: $m5
   padding: 10px
   border-radius: 15px 0px 0px 15px
   width: 90%
+  display: -webkit-box
+  -webkit-line-clamp: 3
+  -webkit-box-orient: vertical
+  overflow: hidden
 
 .reactionsWrapper
   display: flex

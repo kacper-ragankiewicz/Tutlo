@@ -1,6 +1,14 @@
+# Auto code review
+
+[![codebeat badge](https://codebeat.co/badges/fb46c51a-e450-443b-9920-dc54b68b1628)](https://codebeat.co/projects/github-com-kacper-ragankiewicz-tutlo-main)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ac92ff6ab24c479f8dfec96b07e92e59)](https://app.codacy.com/gh/kacper-ragankiewicz/Tutlo/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Getting Started
 
 First, run the development server:
 

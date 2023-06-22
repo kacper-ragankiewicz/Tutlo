@@ -24,30 +24,6 @@ export default function Home(props: any) {
 
   // const categoryArrey = ['Sport']
 
-  const itemsArrey =
-    [
-      {
-        category: 'Sport',
-        title: 'Dawid Kubacki: Płakaliśmy razem z Martą. Od razu napisałem do Anże...',
-        website: 'onet.pl',
-        url: 'https://onet.pl',
-        likes: 100,
-        img: {img}
-      },
-      {
-        category: 'News',
-        title: 'Dawid',
-        website: 'onet.pl',
-        img: {img}
-      },
-      {
-        category: 'News',
-        title: 'Dawid',
-        img: {img}
-      },
-    ]
-
-
   const CategoryGenerator = (props: any) => {
 
     const ListGenerator = (props: any) => {
